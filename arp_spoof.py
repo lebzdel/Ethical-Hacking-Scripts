@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+# makes
+#              VICTIM <--->
+#                           ROUTER
+#              HACKER <--->
+# look like
+#              VICTIM <---> HACKER <---> ROUTER
+# for every victim's network request
+
 import scapy.all as scapy
 import time
 import subprocess
