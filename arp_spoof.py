@@ -4,6 +4,14 @@ import scapy.all as scapy
 import time
 import subprocess
 
+# makes
+#              VICTIM <--->
+#                           ROUTER
+#              HACKER <--->
+# look like
+#              VICTIM <---> HACKER <---> ROUTER
+# for every victim's network request
+
 
 def get_mac(ip):  # return mac of router
     arp_request = scapy.ARP(pdst=ip)
