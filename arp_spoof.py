@@ -38,7 +38,7 @@ def restore(destination_ip, source_ip):
 # allow internet connection (for Linux only) --> (find similar command for your OS)
 subprocess.call("echo 1 > /proc/sys/net/ipv4/ip_forward", shell=True)
 
-target_ip = "10.0.2.6"
+target_ip = "10.0.2.7"
 spoof_ip = "10.0.2.1"
 
 sent_packets_count = 0
